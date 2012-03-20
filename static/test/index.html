@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Storything Unit Tests</title>
+<link rel="stylesheet" href="qunit.css">
+<script src="qunit.js"></script>
+<h1 id="qunit-header">Storything Unit Tests</h1>
+<h2 id="qunit-banner"></h2>
+<div id="qunit-testrunner-toolbar"></div>
+<h2 id="qunit-userAgent"></h2>
+<ol id="qunit-tests"></ol>
+<div id="qunit-fixture"></div>
+<script src="../scripts/jquery.min.js"></script>
+<script>
+module("/article");
+
+asyncTest("endpoint returns empty content on inaccessible URLs", function() {
+  jQuery.ajax("/article", {
+    data: {
+      url: "http://nonexistent.toolness.com/nonexistent"
+    },
+    success: function(response) {
+      equal(response.content, "");
+      start();
+    }
+  });  
+});
+
+asyncTest("endpoint returns 400 on malformed URLs", function() {
+  jQuery.ajax("/article", {
+    data: {
+      url: "LOL"
+    },
+    error: function(xhr) {
+      var response = JSON.parse(xhr.responseText);
+      equal(xhr.status, 400);
+      equal(response.error, true);
+      start();
+    }
+  });
+});
+
+asyncTest("endpoint returns content on valid URLs", function() {
+  jQuery.get("/article", {
+    url: "http://www.toolness.com/wp/2011/06/moving-at-internet-speed/"
+  }, function(response) {
+    var html = response.content;
+    ok(html.indexOf("forced upon them at internet speed?</p>") != -1,
+       "html returned");
+    start();
+  });
+});
+</script>

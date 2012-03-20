@@ -1,0 +1,12 @@
+{ "name": "storything"
+, "description": ""
+, "version": "0.0.1"
+, "private": true
+, "dependencies":
+  { "express": "2.5.x"
+  , "request": "2.9.x"
+  , "up": "0.1.x"
+  }
+, "engines":
+  { "node":  "*" }
+}
