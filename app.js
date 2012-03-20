@@ -15,6 +15,7 @@ app.get('/article', function (req, res) {
          "&url=" + encodeURIComponent(url),
     form: true
   }, function (err, response, body) {
+    // TODO: When will err be true? Do something when it happens.
     try {
       body = JSON.parse(body);
     } catch (e) {
