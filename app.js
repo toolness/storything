@@ -26,3 +26,9 @@ app.get('/article', function (req, res) {
 });
 
 module.exports = app;
+
+if (module.parent == null) {
+  var PORT = config.port || 3000;
+  console.log("listening on port", PORT);
+  app.listen(PORT);
+}
