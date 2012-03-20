@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Story Thing</title>
+    <script src="scripts/modernizr.custom.47927.js"></script>
+    <link rel="stylesheet" href="stylesheets/main.css">
+    <link rel="stylesheet" href="stylesheets/chooser.css">
+    <link rel="stylesheet" href="stylesheets/editor.css">
+    <link rel="stylesheet" href="stylesheets/publish.css">
+    <link rel="stylesheet" href="codemirror2/lib/codemirror.css">
+    <link rel="stylesheet" href="stylesheets/jsbin-codemirror-theme.css">
+  </head>
+  <body>
+    <header>
+      <a href="#"><h1><span class="logo">Story</span> Thing</h1></a>
+      <div class="editor-actions">
+        <button id="undo">Undo</button>
+        <button id="redo">Redo</button>
+        <button id="publish">Publish</button>
+      </div>
+      <div id="instructions"></div>
+    </header>
+    <section id="intro" class="out-on-right">
+      <div class="wrapper">
+        <img src="images/lovebomb-person.svg" class="lovebomb-person">
+        <div class="details">
+          <h2>Send Your Friends A Thing</h2>
+          <aside>Learn HTML and CSS by webifying a story, blog post, essay, or other online composition.</aside>
+          <a href="#chooser" class="button">Get Started</a>
+        </div>
+      </div>
+    </section>
+    <section id="chooser" class="out-on-right">
+      <div class="wrapper">
+        <h2>Enter a URL</h2>
+        <p>Paste the URL of a story or article below, and we'll help you webify it.</p>
+        <input type="text" id="url" autocomplete="off"><img src="images/ajax-loader-big.gif" class="big-throbber" style="display: none;">
+        <p>If you don't have a URL or know what one is, just <a href="" id="use-default-article">click here</a> and we'll get you started.</p>
+        <p class="error result" style="display: none">An error occurred. Either we messed up, or your URL is bogus.</p>
+      </div>
+    </section>
+    <section id="editor" class="out-on-right">
+      <div id="source"></div>
+      <div id="preview-holder">
+        <iframe id="preview" src="templates/blank.html"></iframe>
+      </div>
+    </section>
+    <div class="overlay-outer">
+      <div class="overlay-middle">
+        <div class="overlay-inner">
+          <img src="images/close-button.png" class="close">
+          <img src="images/ajax-loader.gif" class="throbber">
+          <div class="done">
+            <p>Here is the URL for your thing that anyone can view.</p>
+            <div class="published-url">
+              <a target="_blank" href="http://foo/bar">http://foo/bar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>This app is a <a href="http://hackasaurus.org/">Hackasaurus</a> experiment created by <a href="http://twitter.com/iamjessklein">@iamjessklein</a> and <a href="http://twitter.com/toolness">@toolness</a> in 2011.</footer>    
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/yepnope.1.0.2-min.js"></script>
+    <script src="codemirror2/lib/codemirror.js"></script>
+    <script src="codemirror2/mode/xml/xml.js"></script>
+    <script src="codemirror2/mode/javascript/javascript.js"></script>
+    <script src="codemirror2/mode/css/css.js"></script>
+    <script src="codemirror2/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="scripts/editor.js"></script>
+    <script src="scripts/publish.js"></script>
+    <script src="scripts/navigation.js"></script>
+    <script src="scripts/chooser.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>

@@ -37,8 +37,6 @@ function convertToPlainText(html) {
 }
 
 (function(jQuery) {
-  var BASE_URL = "http://bjb.io:9123/";
-  //var BASE_URL = "http://localhost:8080/";
   $(window).ready(function() {
     var val = "";
     var req = null;
@@ -58,12 +56,13 @@ function convertToPlainText(html) {
         if (req)
           req.abort();
         req = jQuery.ajax({
-          url: BASE_URL + 'article',
+          url: '/article',
           data: {
             url: val,
             raw: true
           },
-          success: function(html) {
+          success: function(response) {
+            var html = response.content;
             var data = convertToPlainText(html);
             if (data.length == 0) {
               $("section#chooser .error.result").fadeIn();
