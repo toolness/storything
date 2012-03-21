@@ -1,0 +1,126 @@
+#instructions {
+  position: absolute;
+  top: 65px;
+  width: 100%;
+  height: 135px;
+  overflow: hidden;
+  background: black;
+  color: white;
+}
+
+.spotlight {
+  position: absolute;
+  border: 1px solid blue;
+  box-shadow: 0 0 10px blue;
+  z-index: 10000;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+   box-sizing:        border-box;
+  -moz-transition: opacity 0.25s;
+  -webkit-transition: opacity 0.25s;
+  -o-transition: opacity 0.25s;
+  -ms-transition: opacity 0.25s;
+  opacity: 0;
+}
+
+.spotlight.visible {
+  opacity: 1;
+}
+
+.tutorial-movie {
+}
+
+.tutorial-movie .editor {
+  display: inline-block;
+  vertical-align: bottom;
+  width: 50%;
+  height: 200px;
+  border-top: 1px solid gray;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+   box-sizing:        border-box;
+}
+
+.tutorial-movie .preview {
+  display: inline-block;
+  vertical-align: bottom;
+  width: 50%;
+  height: 200px;
+  border: none;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+   box-sizing:        border-box;
+}
+
+.tutorial-movie .CodeMirror {
+  width: 100%;
+  height: 100%;
+}
+
+.tutorial-movie .dialogue {
+  font-family: Baskerville, Georgia;
+  font-size: 20px;
+  color: white;
+  padding: 4px;
+  -moz-transition: opacity 0.5s;
+  -webkit-transition: opacity 0.5s;
+  -o-transition: opacity 0.5s;
+  -ms-transition: opacity 0.5s;
+  opacity: 0;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+   box-sizing:        border-box;
+}
+
+.tutorial-movie .dialogue.visible {
+  opacity: 1;
+}
+
+.tutorial-movie .dialogue code {
+  font-family: Monaco, "Lucida Console", monospace;
+  font-size: smaller;
+}
+
+.tutorial-movie .player {
+  font-family: Monaco, "Lucida Console", monospace;
+  font-size: 10px;
+  position: absolute;
+  color: white;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 4px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+  border-top: 1px solid gray;
+  z-index: 20000;
+}
+
+.tutorial-movie .player svg.button {
+  width: 14px;
+  height: 14px;
+  vertical-align: bottom;
+  fill: white;
+}
+
+.tutorial-movie .player .scrubber {
+  width: 90%;
+}
+
+.tutorial-movie .player .timestamp {
+  padding-left: 4px;
+  min-width: 40px;
+}
+
+.tutorial-movie .player .scrubber .progress {
+  background: rgba(255, 255, 255, 0.8);
+  min-height: 10px;
+  vertical-align: middle;
+}
+
+.tutorial-movie .player div {
+  display: inline-block;
+}

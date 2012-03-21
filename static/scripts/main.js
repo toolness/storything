@@ -44,23 +44,21 @@ $(window).load(function() {
 });
 
 $(window).ready(function() {
-  jQuery.ajax({
-    type: 'GET',
-    url: "http://etherpad-export.appspot.com/",
-    data: {
-      server: "etherpad.mozilla.org",
-      port: "80",
-      pad: "opennews-webmaking101-copywriting-html",
-      format: "txt"
-    },
-    dataType: "text",
-    crossDomain: true,
-    success: function(data) {
-      $("#instructions").html(data);
-    },
-    error: function(jqXHR, status) {
-      $("#instructions").text("ERROR: " + status + " " + jqXHR.status +
-                              " " + jqXHR.responseText);
-    }
+  var tut = Tutorial({
+    controls: "#instructions .player",
+    editor: "#instructions .editor",
+    preview: "#instructions .preview",
+    instructions: "#instructions .dialogue"
+  }).instruct("Welcome to Storything.")
+    .instruct("This is where you'll be doing your work.")
+    .instruct("We've put the text of your story into the left pane.", 0)
+    .spotlight("#source")
+    .instruct("The right pane is how it looks on the Web.", 0)
+    .spotlight("#preview-holder")
+    .end();
+  $("#editor").bind("navshow", function() {
+    tut.pop.play(0);
   });
+  // For the drafted script, see
+  // http://htmlpad.org/opennews-webmaking101-copywriting-html/
 });

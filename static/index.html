@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="stylesheets/chooser.css">
     <link rel="stylesheet" href="stylesheets/editor.css">
     <link rel="stylesheet" href="stylesheets/publish.css">
+    <link rel="stylesheet" href="stylesheets/tutorial.css">
     <link rel="stylesheet" href="codemirror2/lib/codemirror.css">
     <link rel="stylesheet" href="stylesheets/jsbin-codemirror-theme.css">
   </head>
@@ -19,7 +20,13 @@
         <button id="redo">Redo</button>
         <button id="publish">Publish</button>
       </div>
-      <div id="instructions"></div>
+      <div id="instructions">
+        <div class="tutorial-movie">
+          <div class="dialogue"></div>
+          <div class="editor"></div><iframe class="preview"></iframe>
+          <div class="player"></div>
+        </div>
+      </div>
     </header>
     <section id="intro" class="out-on-right">
       <div class="wrapper">
@@ -72,6 +79,12 @@
     <script src="scripts/publish.js"></script>
     <script src="scripts/navigation.js"></script>
     <script src="scripts/chooser.js"></script>
+    <script src="scripts/popcorn.js"></script>
+    <script src="scripts/popcorn.simplecode.js"></script>
+    <script src="scripts/popcorn.undoable.js"></script>
+    <script src="scripts/popcorn.tutorial.js"></script>
+    <script src="scripts/two-paned-editor.js"></script>
+    <script src="scripts/tutorial.js"></script>
     <script src="scripts/main.js"></script>
   </body>
 </html>
