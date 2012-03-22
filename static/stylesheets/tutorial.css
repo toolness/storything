@@ -15,6 +15,57 @@ section#editor {
   background: #ffff66;
 }
 
+#instructions ul#chapters {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  background: #0050cf;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 11px;
+}
+
+#instructions ul#chapters li {
+  display: inline-block;
+  padding: 6px 4px 6px 4px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#instructions ul#chapters li.active {
+  color: white;
+  cursor: default;
+}
+
+#instructions ul#chapters li.active:hover {
+  color: white;
+}
+
+#instructions ul#chapters li.active:hover div.completion {
+  background: white;
+}
+
+#instructions ul#chapters li:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+#instructions ul#chapters li:hover div.completion {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+#instructions ul#chapters li div.completion {
+  display: inline-block;
+  font-size: smaller;
+  color: #0050cf;
+  background: rgba(255, 255, 255, 0.5);
+  width: 4em;
+  text-align: center;
+  margin-right: 4px;
+}
+
+#instructions ul#chapters li.active div.completion {
+  background: white;
+}
+
 .spotlight {
   position: absolute;
   border: 1px solid #ffff66;
