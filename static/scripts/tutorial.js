@@ -176,7 +176,7 @@ Tutorial.plugin("typechars", {
         start: currentTime,
         execute: function() {
           this._oldCursor = editor.getCursor();
-          editor.focus();
+          //editor.focus();
           editor.nextCursorActivityIsAutomated = true;
           editor.replaceRange(character, editor.getCursor());
         },
