@@ -49,14 +49,6 @@ section {
   top: 65px;
 }
 
-header.section-editor {
-  height: 200px;
-}
-
-section#editor {
-  top: 200px;
-}
-
 header {
   background-color: #0166ff;
   position: relative;

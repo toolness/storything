@@ -1,10 +1,18 @@
+header.section-editor {
+  height: 250px;
+}
+
+section#editor {
+  top: 250px;
+}
+
 #instructions {
   position: absolute;
   top: 65px;
   width: 100%;
-  height: 135px;
+  height: 185px;
   overflow: hidden;
-  background: black;
+  background: #001a42;
   color: white;
 }
 
@@ -63,9 +71,9 @@
 
 .tutorial-movie .dialogue {
   font-family: Baskerville, Georgia;
-  font-size: 20px;
+  font-size: 25px;
   color: white;
-  padding: 4px;
+  padding: 10px;
   -moz-transition: opacity 0.5s;
   -webkit-transition: opacity 0.5s;
   -o-transition: opacity 0.5s;
