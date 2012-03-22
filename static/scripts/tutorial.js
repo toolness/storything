@@ -158,10 +158,11 @@ Tutorial.plugin("moveto", {
 // A plugin to type characters into an editor.
 
 Tutorial.plugin("typechars", {
-  DURATION_PER_CHAR: 0.4,
-  initialize: function(characters) {
+  DEFAULT_DURATION_PER_CHAR: 0.4,
+  initialize: function(characters, durationPerChar) {
+    this.durationPerChar = durationPerChar || this.DEFAULT_DURATION_PER_CHAR;
     this.characters = characters;
-    this.duration = characters.length * this.DURATION_PER_CHAR;
+    this.duration = characters.length * this.durationPerChar;
   },
   annotate: function(pop, commands, editor) {
     var self = this;
@@ -184,7 +185,35 @@ Tutorial.plugin("typechars", {
           editor.replaceRange("", this._oldCursor, editor.getCursor());
         }
       });
-      currentTime += self.DURATION_PER_CHAR;
+      currentTime += self.durationPerChar;
+    });
+  }
+});
+
+Tutorial.plugin("show", {
+  initialize: function(selector, makeVisible) {
+    this.selector = selector;
+    this.makeVisible = makeVisible;
+    this.duration = 0.0;
+  },
+  annotate: function(pop) {
+    var selector = this.selector;
+    var makeVisible = this.makeVisible;
+    pop.simplecode({
+      start: this.start,
+      end: pop.media.duration + 1,
+      onStart: function() {
+        if (makeVisible)
+          $(selector).show();
+        else
+          $(selector).hide();
+      },
+      onEnd: function() {
+        if (makeVisible)
+          $(selector).hide();
+        else
+          $(selector).show();
+      }
     });
   }
 });
@@ -194,9 +223,10 @@ Tutorial.plugin("typechars", {
 
 Tutorial.plugin("instruct", {
   TRANSITION_TIME: 0.6,
+  DEFAULT_DURATION: 5,
   initialize: function(html, duration) {
     if (typeof(duration) == "undefined")
-      duration = 4;
+      duration = this.DEFAULT_DURATION;
     if (duration == 0)
       duration = 0.05;
     this.duration = duration;
