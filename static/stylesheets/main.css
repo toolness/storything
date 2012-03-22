@@ -87,7 +87,7 @@ section {
   position: absolute;
   left: 0px;
   right: 0px;
-  bottom: 30px;
+  bottom: 0px;
   -moz-transition: -moz-transform 1s;
   -webkit-transition: -webkit-transform 1s;
   -o-transition: -o-transform 1s;
@@ -177,28 +177,5 @@ button, a.button {
 }
 
 button:hover, a.button:hover {
-  text-decoration: underline;
-}
-
-footer {
-  background: #414244;
-  color: #a0a0a0;
-  text-align: center;
-  font-size: 11px;
-  padding-top: 8px;
-  padding-bottom: 12px;
-  position: absolute;
-  height: 10px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-}
-
-footer a {
-  color: #e0e0e0;
-  text-decoration: none;
-}
-
-footer a:hover {
   text-decoration: underline;
 }
