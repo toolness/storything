@@ -43,22 +43,53 @@ $(window).load(function() {
   Publish.init();  
 });
 
-$(window).ready(function() {
-  var tut = Tutorial({
-    controls: "#instructions .player",
-    editor: "#instructions .editor",
-    preview: "#instructions .preview",
-    instructions: "#instructions .dialogue"
-  }).instruct("Welcome to Storything.")
-    .instruct("This is where you'll be doing your work.")
-    .instruct("We've put the text of your story into the left pane.", 0)
-    .spotlight("#source")
-    .instruct("The right pane is how it looks on the Web.", 0)
-    .spotlight("#preview-holder")
-    .end();
-  $("#editor").bind("navshow", function() {
-    tut.pop.play(0);
-  });
+var TutorialBuilders = {
   // For the drafted script, see
   // http://htmlpad.org/opennews-webmaking101-copywriting-html/
+  tut_paragraphs: function(tutorial) {
+    return tutorial
+      .instruct("Welcome to Storything.")
+      .instruct("This is where you'll be doing your work.")
+      .instruct("We've put the text of your story into the left pane.", 0)
+      .spotlight("#source")
+      .instruct("The right pane is how it looks on the Web.", 0)
+      .spotlight("#preview-holder")
+      .end();
+  }
+};
+
+$(window).ready(function() {
+  var chapterTabs = $("ul#chapters > li");
+  chapterTabs.each(function() {
+    var tabBar = $(this).parent();
+    var tabId = $(this).attr("id");
+    var tabContent = $("#templates .tutorial-movie")
+      .clone().appendTo("#chapter-content");
+    var buildTutorial = TutorialBuilders[tabId] || function(tutorial) {
+      return tutorial
+        .instruct("This tutorial has not yet been written.")
+        .instruct("Sorry.")
+        .end();
+    };
+    var tabTutorial = buildTutorial(Tutorial({
+      controls: tabContent.find(".player"),
+      editor: tabContent.find(".editor"),
+      preview: tabContent.find(".preview"),
+      instructions: tabContent.find(".dialogue")
+    }));
+    $(this).click(function() {
+      tabBar.find("> li.active").trigger("deactivate-tab");
+      $(this).addClass("active");
+      tabContent.addClass("active");
+      tabTutorial.pop.play(0);
+    });
+    $(this).bind("deactivate-tab", function() {
+      $(this).removeClass("active");
+      tabContent.removeClass("active");
+      tabTutorial.pop.pause(0);
+    });
+  });
+  $("#editor").bind("navshow", function() {
+    chapterTabs.first().click();
+  });
 });

@@ -22,19 +22,22 @@
       </div>
       <div id="instructions">
         <ul id="chapters">
-          <li class="active"><div class="completion">1</div>Paragraphs</li>
-          <li><div class="completion">2</div>Headings</li>
-          <li><div class="completion">3</div>More Tags</li>
-          <li><div class="completion">4</div>Lists</li>
-          <li><div class="completion">5</div>Images</li>
-          <li><div class="completion">6</div>Links</li>
-          <li><div class="completion">7</div>Embeds</li>
+          <li id="tut_paragraphs"><div
+            class="completion">1</div>Paragraphs</li>
+          <li id="tut_headings"><div
+            class="completion">2</div>Headings</li>
+          <li id="tut_moretags"><div
+            class="completion">3</div>More Tags</li>
+          <li id="tut_lists"><div
+            class="completion">4</div>Lists</li>
+          <li id="tut_images"><div
+            class="completion">5</div>Images</li>
+          <li id="tut_links"><div
+            class="completion">6</div>Links</li>
+          <li id="tut_embeds"><div
+            class="completion">7</div>Embeds</li>
         </ul>
-        <div class="tutorial-movie">
-          <div class="dialogue"></div>
-          <div class="editor"></div><iframe class="preview"></iframe>
-          <div class="player"></div>
-        </div>
+        <div id="chapter-content"></div>
       </div>
     </header>
     <section id="intro" class="out-on-right">
@@ -74,6 +77,13 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div id="templates" style="display: none">
+      <div class="tutorial-movie">
+        <div class="dialogue"></div>
+        <div class="editor"></div><iframe class="preview"></iframe>
+        <div class="player"></div>
       </div>
     </div>
     <script src="scripts/jquery.min.js"></script>

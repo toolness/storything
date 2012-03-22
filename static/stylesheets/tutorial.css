@@ -87,6 +87,11 @@ section#editor {
 }
 
 .tutorial-movie {
+  display: none;
+}
+
+.tutorial-movie.active {
+  display: block;
 }
 
 .tutorial-movie .editor {
