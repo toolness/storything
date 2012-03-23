@@ -193,3 +193,43 @@ section#editor {
 .tutorial-movie .player div {
   display: inline-block;
 }
+
+.achievement-wrapper {
+  z-index: 100000;
+  position: fixed;
+  left: 0px;
+  top: 50%;
+  bottom: 0px;
+  right: 0px;
+  display: none;
+  pointer-events: none;
+}
+
+.achievement {
+  height: 120px;
+  width: 400px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 10px;
+  color: white;
+  text-transform: uppercase;
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+   box-sizing:        border-box;
+}
+
+.achievement img.badge {
+  float: left;
+  padding-right: 10px;
+}
+
+.achievement h3 {
+  padding-top: 10px;
+  font-size: 10px;
+}
+
+.achievement .name {
+  color: lightgreen;
+  font-weight: bold;
+  font-size: 30px;
+}

@@ -109,7 +109,8 @@ var TutorialBuilders = {
       var html = jQuery.trim(Editor.getContent().html);
       return (html.slice(0, 3).toLowerCase() == "<p>" &&
               html.slice(-4).toLowerCase() == "</p>");
-    }
+    },
+    achievement: "#paragrapher-badge"
   }
 };
 
@@ -152,6 +153,9 @@ $(window).ready(function() {
         builder.winMovie(tabTutorial).end();
         tab.find(".completion").text("Done");
         clearInterval(checkChallengeInterval);
+        $(builder.achievement).fadeIn("slow", function() {
+          setTimeout(function() { $(builder.achievement).fadeOut(); }, 3000);
+        });
         if (isActive)
           tab.click();
       }
