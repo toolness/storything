@@ -70,6 +70,8 @@ var TutorialBuilders = {
       return tutorial
         .show(examplePanes, false)
         .instruct("Welcome to Storything.")
+        .instruct("If you ever get lost, feel free to drag the scrubber below to review this tutorial.", 0)
+        .spotlight(".tutorial-movie.tut_paragraphs .scrubber")
         .instruct("We've put the text of your story into the left pane.", 0)
         .spotlight("#source")
         .instruct("The right pane is how it looks on the Web.", 0)
@@ -100,8 +102,8 @@ var TutorialBuilders = {
         .instruct("Now it's your turn. Can you mark up your text so it doesn't look like a blob anymore?")
         .instruct("Go ahead&mdash;just click on the left pane and start typing.", 0)
         .spotlight("#source")
-        .instruct("If you get lost, feel free to drag the scrubber below to review this tutorial.", 0)
-        .spotlight(".tutorial-movie.tut_paragraphs .scrubber");
+        .instruct("Once you're done, click chapter 2, <em>Headings</em>, to learn your next tag.", 0)
+        .spotlight("#tut_headings");
     }
   }
 };
