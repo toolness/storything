@@ -89,7 +89,7 @@ function convertToPlainText(html) {
     
     $("#use-default-article").click(function() {
       val = "";
-      $('section#chooser input').val('http://www.toolness.com/wp/2011/06/moving-at-internet-speed/');
+      $('section#chooser input').val('http://creativecommons.org/about');
       return false;
     });
   });
