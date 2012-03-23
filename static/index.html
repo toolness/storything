@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="stylesheets/chooser.css">
     <link rel="stylesheet" href="stylesheets/editor.css">
     <link rel="stylesheet" href="stylesheets/publish.css">
+    <link rel="stylesheet" href="stylesheets/badges.css">
     <link rel="stylesheet" href="stylesheets/tutorial.css">
     <link rel="stylesheet" href="codemirror2/lib/codemirror.css">
     <link rel="stylesheet" href="stylesheets/jsbin-codemirror-theme.css">
@@ -21,6 +22,10 @@
         <button id="publish">Publish</button>
       </div>
       <div id="instructions">
+        <div id="badge-display">
+          <img class="badge" src="images/toy-badge.png">
+          <span class="badge-count"></span>
+        </div>
         <ul id="chapters">
           <li id="tut_paragraphs"><div
             class="completion">1</div>Paragraphs</li>
@@ -111,6 +116,7 @@
     <script src="scripts/popcorn.undoable.js"></script>
     <script src="scripts/popcorn.tutorial.js"></script>
     <script src="scripts/two-paned-editor.js"></script>
+    <script src="scripts/badges.js"></script>
     <script src="scripts/tutorial.js"></script>
     <script src="scripts/main.js"></script>
   </body>

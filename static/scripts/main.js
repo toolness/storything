@@ -1,4 +1,6 @@
 $(window).load(function() {
+  var badgeTracker;
+  
   function getQueryVariable(variable) {
     var query = window.location.search.substring(1);
     var vars = query.split("&");
@@ -36,10 +38,12 @@ $(window).load(function() {
       var loaded = Editor.loadTemplate(templateID);
       loaded.done(function() {
         $("ul#chapters > li").each(createTabTutorial).first().click();
+        badgeTracker = BadgeTracker(badges, $("#badge-display"));
       });
     }
   });
   $("#editor").bind("navhide", function() {
+    badgeTracker.destroy();
     $("ul#chapters > li").trigger("destroy-tab");
   });
   $("#publish").click(function() { Publish.publish(Editor.getContent()); });
@@ -57,12 +61,6 @@ var TutorialBuilders = {
       return tutorial
         .instruct("This tutorial has not yet been written.")
         .instruct("Sorry.");
-    },
-    winMovie: function(tutorial) {
-      return tutorial;
-    },
-    isChallengeFinished: function() {
-      return false;
     }
   },
   tut_paragraphs: {
@@ -104,19 +102,7 @@ var TutorialBuilders = {
         .spotlight("#source")
         .instruct("If you get lost, feel free to drag the scrubber below to review this tutorial.", 0)
         .spotlight(".tutorial-movie.tut_paragraphs .scrubber");
-    },
-    winMovie: function(tutorial) {
-      return tutorial
-        .instruct("Good job! You've made your first paragraphs in HTML.")
-        .instruct("Now click chapter 2, <em>Headings</em>, to learn your next tag.", 0)
-        .spotlight("#tut_headings");
-    },
-    isChallengeFinished: function() {
-      var html = jQuery.trim(Editor.getContent().html);
-      return (html.slice(0, 3).toLowerCase() == "<p>" &&
-              html.slice(-4).toLowerCase() == "</p>");
-    },
-    achievement: "#paragrapher-badge"
+    }
   }
 };
 
@@ -141,7 +127,6 @@ function createTabTutorial() {
       // TODO: Not sure why this is sometimes happening.
       console.error(e, e.stack);
     }
-    clearInterval(checkChallengeInterval);
   }
   
   var tab = $(this);
@@ -150,28 +135,6 @@ function createTabTutorial() {
   var builder = TutorialBuilders[tabId] || TutorialBuilders["default"];
   var tabContent;
   var tabTutorial;
-  var defaultBeginning = 0;
-  var hasChallengeBeenFinished = false;
-  var checkChallengeInterval;
-  
-  function checkChallenge() {
-    if (builder.isChallengeFinished(tabTutorial)) {
-      var isActive = tabContent.hasClass("active");
-      hasChallengeBeenFinished = true;
-      defaultBeginning = tabTutorial.pop.media.duration;
-
-      destroyTabTutorial();
-      resetTabTutorial();
-
-      builder.winMovie(tabTutorial).end();
-      tab.find(".completion").text("Done");
-      $(builder.achievement).fadeIn("slow", function() {
-        setTimeout(function() { $(builder.achievement).fadeOut(); }, 3000);
-      });
-      if (isActive)
-        tab.click();
-    }
-  }
 
   resetTabTutorial();
   tabTutorial.end();
@@ -179,15 +142,12 @@ function createTabTutorial() {
     tabBar.find("> li.active").trigger("deactivate-tab");
     $(this).addClass("active");
     tabContent.addClass("active");
-    tabTutorial.pop.play(defaultBeginning);
-    if (!hasChallengeBeenFinished)
-      checkChallengeInterval = setInterval(checkChallenge, 500);
+    tabTutorial.pop.play(0);
   });
   $(this).bind("deactivate-tab", function() {
     $(this).removeClass("active");
     tabContent.removeClass("active");
-    tabTutorial.pop.pause(defaultBeginning);
-    clearInterval(checkChallengeInterval);
+    tabTutorial.pop.pause(0);
   });
   $(this).bind("destroy-tab", function() {
     $(this).trigger("deactivate-tab");
