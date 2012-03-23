@@ -1,13 +1,3 @@
-var badges = {
-  paragrapher: {
-    isAchieved: function() {
-      var html = Editor.getContent().html;
-      return html.match(/\<p\>/i) && html.match(/\<\/p\>/i);
-    },
-    achievement: "#paragrapher-badge"
-  }
-};
-
 function BadgeTracker(badges, display) {
   var fixedBefore = {},
       interval,

@@ -38,7 +38,7 @@ $(window).load(function() {
       var loaded = Editor.loadTemplate(templateID);
       loaded.done(function() {
         $("ul#chapters > li").each(createTabTutorial).first().click();
-        badgeTracker = BadgeTracker(badges, $("#badge-display"));
+        badgeTracker = BadgeTracker(TutorialBadges, $("#badge-display"));
       });
     }
   });
@@ -52,6 +52,16 @@ $(window).load(function() {
   Navigation.init();
   Publish.init();  
 });
+
+var TutorialBadges = {
+  paragrapher: {
+    isAchieved: function() {
+      var html = Editor.getContent().html;
+      return html.match(/\<p\>/i) && html.match(/\<\/p\>/i);
+    },
+    achievement: "#paragrapher-badge"
+  }
+};
 
 var TutorialBuilders = {
   // For the drafted script, see
