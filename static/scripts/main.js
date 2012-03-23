@@ -33,8 +33,14 @@ $(window).load(function() {
       if (remixURL)
         Editor.remix(remixURL);
     } else {
-      Editor.loadTemplate(templateID);
+      var loaded = Editor.loadTemplate(templateID);
+      loaded.done(function() {
+        $("ul#chapters > li").each(createTabTutorial).first().click();
+      });
     }
+  });
+  $("#editor").bind("navhide", function() {
+    $("ul#chapters > li").trigger("destroy-tab");
   });
   $("#publish").click(function() { Publish.publish(Editor.getContent()); });
   $("#undo").click(function() { Editor.undo(); });
@@ -114,68 +120,78 @@ var TutorialBuilders = {
   }
 };
 
-$(window).ready(function() {
-  var chapterTabs = $("ul#chapters > li");
-  chapterTabs.each(function() {
-    function resetTabTutorial() {
-      tabContent = $("#templates .tutorial-movie")
-        .clone().addClass(tabId).appendTo("#chapter-content");
-      tabTutorial = Tutorial({
-        controls: tabContent.find(".player"),
-        editor: tabContent.find(".editor"),
-        preview: tabContent.find(".preview"),
-        instructions: tabContent.find(".dialogue")
-      });
-      builder.movie(tabTutorial);
+function createTabTutorial() {
+  function resetTabTutorial() {
+    tabContent = $("#templates .tutorial-movie")
+      .clone().addClass(tabId).appendTo("#chapter-content");
+    tabTutorial = Tutorial({
+      controls: tabContent.find(".player"),
+      editor: tabContent.find(".editor"),
+      preview: tabContent.find(".preview"),
+      instructions: tabContent.find(".dialogue")
+    });
+    builder.movie(tabTutorial);
+  }
+
+  function destroyTabTutorial() {
+    tabContent.remove();
+    try {
+      tabTutorial.pop.pause(0).destroy();
+    } catch (e) {
+      // TODO: Not sure why this is sometimes happening.
+      console.error(e, e.stack);
     }
+    clearInterval(checkChallengeInterval);
+  }
+  
+  var tab = $(this);
+  var tabBar = $(this).parent();
+  var tabId = $(this).attr("id");
+  var builder = TutorialBuilders[tabId] || TutorialBuilders["default"];
+  var tabContent;
+  var tabTutorial;
+  var defaultBeginning = 0;
+  var hasChallengeBeenFinished = false;
+  var checkChallengeInterval;
+  
+  function checkChallenge() {
+    if (builder.isChallengeFinished(tabTutorial)) {
+      var isActive = tabContent.hasClass("active");
+      hasChallengeBeenFinished = true;
+      defaultBeginning = tabTutorial.pop.media.duration;
 
-    var tab = $(this);
-    var tabBar = $(this).parent();
-    var tabId = $(this).attr("id");
-    var builder = TutorialBuilders[tabId] || TutorialBuilders["default"];
-    var tabContent;
-    var tabTutorial;
-    var defaultBeginning = 0;
-    var checkChallengeInterval = setInterval(function() {
-      if (builder.isChallengeFinished(tabTutorial)) {
-        var isActive = tabContent.hasClass("active");
-        defaultBeginning = tabTutorial.pop.media.duration;
-        tabContent.remove();
-        try {
-          tabTutorial.pop.pause(0).destroy();
-        } catch (e) {
-          // TODO: Not sure why this is sometimes happening.
-          console.error(e, e.stack);
-        }
+      destroyTabTutorial();
+      resetTabTutorial();
 
-        resetTabTutorial();
+      builder.winMovie(tabTutorial).end();
+      tab.find(".completion").text("Done");
+      $(builder.achievement).fadeIn("slow", function() {
+        setTimeout(function() { $(builder.achievement).fadeOut(); }, 3000);
+      });
+      if (isActive)
+        tab.click();
+    }
+  }
 
-        builder.winMovie(tabTutorial).end();
-        tab.find(".completion").text("Done");
-        clearInterval(checkChallengeInterval);
-        $(builder.achievement).fadeIn("slow", function() {
-          setTimeout(function() { $(builder.achievement).fadeOut(); }, 3000);
-        });
-        if (isActive)
-          tab.click();
-      }
-    }, 500);
-
-    resetTabTutorial();
-    tabTutorial.end();
-    $(this).click(function() {
-      tabBar.find("> li.active").trigger("deactivate-tab");
-      $(this).addClass("active");
-      tabContent.addClass("active");
-      tabTutorial.pop.play(defaultBeginning);
-    });
-    $(this).bind("deactivate-tab", function() {
-      $(this).removeClass("active");
-      tabContent.removeClass("active");
-      tabTutorial.pop.pause(defaultBeginning);
-    });
+  resetTabTutorial();
+  tabTutorial.end();
+  $(this).click(function() {
+    tabBar.find("> li.active").trigger("deactivate-tab");
+    $(this).addClass("active");
+    tabContent.addClass("active");
+    tabTutorial.pop.play(defaultBeginning);
+    if (!hasChallengeBeenFinished)
+      checkChallengeInterval = setInterval(checkChallenge, 500);
   });
-  $("#editor").bind("navshow", function() {
-    chapterTabs.first().click();
+  $(this).bind("deactivate-tab", function() {
+    $(this).removeClass("active");
+    tabContent.removeClass("active");
+    tabTutorial.pop.pause(defaultBeginning);
+    clearInterval(checkChallengeInterval);
   });
-});
+  $(this).bind("destroy-tab", function() {
+    $(this).trigger("deactivate-tab");
+    destroyTabTutorial();
+    $(this).unbind();
+  });
+}

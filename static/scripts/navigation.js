@@ -65,7 +65,7 @@ var Navigation = (function() {
         if (event.target != this)
           return;
         if ($(this).is(".out-on-right, .out-on-left")) {
-          $(this).hide();
+          $(this).trigger("navhide").hide();
           $("header").removeClass('section-' + this.id);
         } else {
           $(this).trigger("navshow", parseHash().arg);

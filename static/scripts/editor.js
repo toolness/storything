@@ -139,14 +139,16 @@ var Editor = (function() {
       cursorActivityListeners.push(cb);
     },
     loadTemplate: function(id) {
+      var deferred = jQuery.Deferred();
       if (id == "custom") {
         setTimeout(function() {
           console.log("custom", window.localStorage['customHtml']);
           nextUpdateIsInstant = true;
           templateURL = "custom";
           getEditor().setValue(window.localStorage['customHtml']);
+          deferred.resolve();
         }, 100);
-        return;
+        return deferred;
       }
       var newTemplateURL = absolutifyURL('templates/' + id + '.html');
       if (newTemplateURL != templateURL) {
@@ -155,8 +157,11 @@ var Editor = (function() {
         jQuery.when(req).done(function(data) {
           nextUpdateIsInstant = true;
           getEditor().setValue(mungeTemplate(data, id));
+          deferred.resolve();
         });
-      }
+      } else
+        deferred.resolve();
+      return deferred;
     }
   };
 })();
