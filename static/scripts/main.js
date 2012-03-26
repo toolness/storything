@@ -60,6 +60,27 @@ var TutorialBadges = {
       return html.match(/\<p\>/i) && html.match(/\<\/p\>/i);
     },
     achievement: "#paragrapher-badge"
+  },
+  h1_headliner: {
+    isAchieved: function() {
+      var html = Editor.getContent().html;
+      return html.match(/\<h1\>/i) && html.match(/\<\/h1\>/i);
+    },
+    achievement: "#h1_headliner-badge"
+  },
+  h2_headliner: {
+    isAchieved: function() {
+      var html = Editor.getContent().html;
+      return html.match(/\<h2\>/i) && html.match(/\<\/h2\>/i);
+    },
+    achievement: "#h2_headliner-badge"
+  },
+  h6_headliner: {
+    isAchieved: function() {
+      var html = Editor.getContent().html;
+      return html.match(/\<h6\>/i) && html.match(/\<\/h6\>/i);
+    },
+    achievement: "#h6_headliner-badge"
   }
 };
 
@@ -114,6 +135,35 @@ var TutorialBuilders = {
         .spotlight("#source")
         .instruct("Once you're done, click chapter 2, <em>Headings</em>, to learn your next tag.", 0)
         .spotlight("#tut_headings");
+    }
+  },
+  tut_headings: {
+    movie: function(tutorial) {
+      var examplePanes = ".tutorial-movie.tut_headings .two-panes";
+      var examplePreviewPane = ".tutorial-movie.tut_headings .preview";
+      return tutorial
+        .show(examplePanes, false)
+        .instruct("Paragraphs are great, but there's more to writing than that, isn't there?")
+        .instruct("Like headlines.", 0)
+        .show(examplePanes, true)
+        .typechars("This is a really important headline.", 0.1)
+        .instruct("The <code class=\"tag\">&lt;h1&gt;</code> tag is for the most important heading in a page.", 0)
+        .moveto({position: "beginning", search: "This"})
+        .typechars("<h1>")
+        .moveto({position: "end", search: "headline."})
+        .typechars("</h1>")
+        .instruct("Notice how large and bold the headline appears on the Web.", 0)
+        .spotlight(examplePreviewPane)
+        .instruct("The <code class=\"tag\">&lt;h2&gt;</code> tag can be used for less important headings.", 0)
+        .moveto({position: "beginning", search: "<h1>This is a really"})
+        .typechars("<h2>This is a slightly less important headline.</h2>\n\n", 0.1)
+        .instruct("Notice how the <code class=\"tag\">&lt;h2&gt;</code> is a bit smaller than the <code class=\"tag\">&lt;h1&gt;</code>.", 0)
+        .spotlight(examplePreviewPane)
+        .instruct("You can use <code class=\"tag\">&lt;h3&gt;</code>, <code class=\"tag\">&lt;h4&gt;</code>, <code class=\"tag\">&lt;h5&gt;</code>, and <code class=\"tag\">&lt;h6&gt;</code> for even less important headings.")
+        .show(examplePanes, false)
+        .instruct("Go ahead and give your story a headline wrapped in a <code class=\"tag\">&lt;h1&gt;</code> and a byline wrapped in a <code class=\"tag\">&lt;h2&gt;</code>.")
+        .instruct("When you're done, click chapter 3, <em>More Tags</em>, to learn more.", 0)
+        .spotlight("#tut_moretags");
     }
   }
 };
