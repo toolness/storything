@@ -1,0 +1,3 @@
+module.exports = {
+  readabilityApiToken: "your readability API token"
+};
